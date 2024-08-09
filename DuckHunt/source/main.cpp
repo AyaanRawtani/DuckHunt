@@ -1,25 +1,20 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "header/Main/GameService.h"
+
+using namespace Main;
 
 int main()
 {
-    sf::VideoMode videoMode = sf::VideoMode(800, 600);
+    GameService* game_service = new GameService();
 
-    sf::RenderWindow window(videoMode, "SFML Window");
+    game_service->ignite();
+    
 
-
-
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear(sf::Color::Blue);
-
-        window.display();
+    while (game_service->isRunning())
+    {
+        game_service->update();
+        game_service->render();
     }
 
     return 0;
