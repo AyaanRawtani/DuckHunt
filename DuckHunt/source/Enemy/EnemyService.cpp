@@ -19,23 +19,20 @@ namespace Enemy
 
 	void EnemyService::initialize()
 	{
-		spawnEnemy(3);
+		spawnEnemy(8);
 	}
 
 	void EnemyService::update()
 	{
-		for (auto enemy : enemy_list)
-		{
-			enemy->update();
-		}
+	
+		for (int i = 0; i < enemy_list.size(); i++)
+			enemy_list[i]->update();
 	}
 
 	void EnemyService::render()
 	{
-		for (auto enemy : enemy_list)
-		{
-			enemy->render();
-		}
+		for (int i = 0; i < enemy_list.size(); i++)
+			enemy_list[i]->render();
 	}
 
 	void EnemyService::spawnEnemy(int count)

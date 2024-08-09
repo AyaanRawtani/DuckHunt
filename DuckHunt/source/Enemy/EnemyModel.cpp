@@ -61,11 +61,12 @@ namespace Enemy
 	sf::Vector2f EnemyModel::getRandomVelocity()
 	{
 		{
-			float x = std::rand() % 151 + 250;
-			float y = -200.f;
+			float x = std::rand() %  151 + 350;
+			float y = std::rand() % -121 - 220;
 
 			if (std::rand() % 2 == 0) {
 				x = -x;
+				//y = y;
 			}
 
 			return sf::Vector2f(x, y);
