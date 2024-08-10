@@ -30,7 +30,7 @@ namespace Enemy
 		void update();
 		void render();
 
-		const float getSpriteWidth();
+		
 		const float getSpriteHeight();
 
 	};
