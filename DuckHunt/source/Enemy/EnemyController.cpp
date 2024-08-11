@@ -1,6 +1,7 @@
 #include "Enemy/EnemyController.h"
 #include "Enemy/EnemyModel.h"
 #include "Enemy/EnemyView.h"
+#include "Enemy/EnemyConfig.h"
 #include "Global/ServiceLocator.h"
 #include "Time/TimeService.h"
 #include <iostream>
@@ -11,10 +12,10 @@ namespace Enemy
 {
 	using namespace Global;
 
-	EnemyController::EnemyController()
+	EnemyController::EnemyController(EnemyKind type)
 	{
 		enemy_view = new EnemyView();
-		enemy_model = new EnemyModel();
+		enemy_model = new EnemyModel(type);
 	}
 
 	EnemyController::~EnemyController()
@@ -25,12 +26,12 @@ namespace Enemy
 
 
 
-	void EnemyController::initialize()
+	 void EnemyController::initialize()
 	{
 		enemy_model->initialize();
 		enemy_view->initialize(this);
 
-		//enemy_model->getRandomVelocity();
+		
 	}
 
 	void EnemyController::update()
@@ -53,16 +54,16 @@ namespace Enemy
 			current_position.x = leftBound;
 			current_velocity.x = -current_velocity.x;
 
-			std::cout << "Hit right bound. New velocity: " << current_velocity.x << std::endl;
+			//std::cout << "Hit right bound. New velocity: " << current_velocity.x << std::endl;
 		
 		}
 
-		if (current_position.x + enemy_view->getSpriteWidth() >= rightBound)    // + 60 because sprite width is 60.f and 0,0 is top left of sprite so right edge of sprite is 0+60 
+		if (current_position.x + enemy_view-> getSpriteWidth() >= rightBound)    // + 60 because sprite width is 60.f and 0,0 is top left of sprite so right edge of sprite is 0+60 
 		{
 			current_position.x = rightBound - enemy_view->getSpriteWidth();
 			current_velocity.x = -current_velocity.x;
 
-			std::cout << "Hit right bound. New velocity: " << current_velocity.x << std::endl;
+			//std::cout << "Hit right bound. New velocity: " << current_velocity.x << std::endl;
 		}
 
 		if (current_position.y <= topBound)
@@ -70,7 +71,7 @@ namespace Enemy
 			current_position.y = topBound;
 			current_velocity.y = -current_velocity.y;
 
-			std::cout << "Hit right bound. New velocity: " << current_velocity.y << std::endl;
+			//std::cout << "Hit right bound. New velocity: " << current_velocity.y << std::endl;
 		}
 
 		if (current_position.y + enemy_view->getSpriteHeight() >= bottomBound)
@@ -78,7 +79,7 @@ namespace Enemy
 			current_position.y = bottomBound - enemy_view->getSpriteHeight();         // need to create getSpriteSize in enemy_view
 			current_velocity.y = -current_velocity.y;
 
-			std::cout << "Hit right bound. New velocity: " << current_velocity.y << std::endl;
+			//std::cout << "Hit right bound. New velocity: " << current_velocity.y << std::endl;
 		}
 
 		
@@ -108,23 +109,31 @@ namespace Enemy
 	{
 		return enemy_model->getRandomVelocity();
 	}
-	/*
-	sf::Vector2f EnemyController::generateRandomVelocity()
+
+	EnemyKind EnemyController::getEnemyType()
 	{
-			
-			{
-				float x = std::rand() % 151 + 250;
-				float y = -200.f;
-
-				if (std::rand() % 2 == 0) {
-					x = -x;
-				}
-
-				return sf::Vector2f(x, y);
-			}
-		
+		return enemy_model->getEnemyType();
 	}
-	*/
 
+	EnemyState EnemyController::getEnemyState()
+	{
+		return enemy_model->getEnemyState();
+	}
+
+	bool EnemyController::checkCollision(const sf::Vector2i& mousePos)
+	{
+		sf::Sprite collision_sprite = enemy_view->getEnemySprite();
+		sf::FloatRect enemyBounds = collision_sprite.getGlobalBounds();
+
+		return enemyBounds.contains(static_cast<sf::Vector2f> (mousePos));
+	
+	}
+
+	void EnemyController::destroy()
+	{
+		//printf("Enemy destoryed");
+		ServiceLocator::getInstance()->getEnemyService()->destroyEnemy(this);
+	}
+	
 	
 }

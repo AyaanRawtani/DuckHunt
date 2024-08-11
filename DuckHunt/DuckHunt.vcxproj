@@ -143,27 +143,53 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Collision\ICollider.cpp" />
+    <ClCompile Include="source\Enemy\Controllers\GreenBirdController.cpp" />
+    <ClCompile Include="source\Enemy\Controllers\RedBirdController.cpp" />
     <ClCompile Include="source\Enemy\EnemyController.cpp" />
     <ClCompile Include="source\Enemy\EnemyModel.cpp" />
     <ClCompile Include="source\Enemy\EnemyService.cpp" />
     <ClCompile Include="source\Enemy\EnemyView.cpp" />
     <ClCompile Include="source\Event\EventService.cpp" />
+    <ClCompile Include="source\Gameplay\GameplayController.cpp" />
+    <ClCompile Include="source\Gameplay\GameplayService.cpp" />
+    <ClCompile Include="source\Gameplay\GameplayView.cpp" />
     <ClCompile Include="source\Main\GameService.cpp" />
     <ClCompile Include="source\Graphics\GraphicService.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Global\ServiceLocator.cpp" />
+    <ClCompile Include="source\Player\PlayerController.cpp" />
+    <ClCompile Include="source\Player\PlayerService.cpp" />
     <ClCompile Include="source\Time\TimeService.cpp" />
+    <ClCompile Include="source\UI\UIControllers\MainMenuController.cpp" />
+    <ClCompile Include="source\UI\UIElement\ImageView.cpp" />
+    <ClCompile Include="source\UI\UIService.cpp" />
+    <ClCompile Include="source\UI\UIView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\Collision\ICollider.h" />
+    <ClInclude Include="header\Enemy\Controllers\GreenBirdController.h" />
+    <ClInclude Include="header\Enemy\Controllers\RedBirdController.h" />
+    <ClInclude Include="header\Enemy\EnemyConfig.h" />
     <ClInclude Include="header\Enemy\EnemyController.h" />
     <ClInclude Include="header\Enemy\EnemyModel.h" />
     <ClInclude Include="header\Enemy\EnemyService.h" />
     <ClInclude Include="header\Enemy\EnemyView.h" />
     <ClInclude Include="header\Event\EventService.h" />
+    <ClInclude Include="header\Gameplay\GameplayController.h" />
+    <ClInclude Include="header\Gameplay\GameplayService.h" />
+    <ClInclude Include="header\Gameplay\GameplayView.h" />
     <ClInclude Include="header\Main\GameService.h" />
     <ClInclude Include="header\Graphics\GraphicService.h" />
     <ClInclude Include="header\Global\ServiceLocator.h" />
+    <ClInclude Include="header\Player\PlayerController.h" />
+    <ClInclude Include="header\Player\PlayerService.h" />
     <ClInclude Include="header\Time\TimeService.h" />
+    <ClInclude Include="header\UI\IUIController.h" />
+    <ClInclude Include="header\UI\UIControllers\MainMenuController.h" />
+    <ClInclude Include="header\UI\UIElement\ImageView.h" />
+    <ClInclude Include="header\UI\UIService.h" />
+    <ClInclude Include="header\UI\UIView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

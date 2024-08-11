@@ -2,23 +2,28 @@
 #include "Enemy/EnemyController.h"
 #include <vector>
 #include "Enemy/EnemyModel.h"
+
+
 namespace Enemy
 {
-
+	
 	class EnemyController;
+	enum class EnemyKind;
 
 	class EnemyService
 	{
 	private:
-
-		void Destroy();
+		int current_wave = 1;
+		
 		EnemyModel* enemy_model;
 
 		std::vector<EnemyController*> enemy_list;
 
-	public :
-
+		EnemyKind getRandomEnemyType();
 		
+		EnemyController* createEnemy(EnemyKind enemy_type);
+
+	public :
 
 		EnemyService();
 		virtual ~EnemyService();
@@ -28,6 +33,13 @@ namespace Enemy
 		void render();
 
 		void spawnEnemy(int count);
+		void spawnEnemiesForCurrentWave(int enemies_to_spawn);
 
+		int getCurrentWave() const;
+
+		const std::vector<EnemyController*>& getEnemyVector() const;
+
+		void destroyEnemy(EnemyController* enemy_controller);
+		void destroy();
 	};
 }
