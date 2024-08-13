@@ -16,8 +16,7 @@ namespace Player
 	void PlayerController::initialize()
 	{
 		game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
-		Enemy::EnemyService* enemy_service = ServiceLocator::getInstance()->getEnemyService();
-		enemies_list = enemy_service->getEnemyVector();
+		
 	}
 
 	bool PlayerController::pressed_left_mb()
