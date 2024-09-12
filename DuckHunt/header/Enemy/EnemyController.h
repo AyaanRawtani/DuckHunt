@@ -23,11 +23,23 @@ namespace Enemy
 		const float topBound = 50.0f;
 		const float bottomBound = 1080.0f - 50.f ;
 
+
+		sf::Vector2f current_position;
+		sf::Vector2f current_velocity;
+
 	protected :
 
 		EnemyModel* enemy_model;
 		EnemyView* enemy_view;
 		void moveAndRebound();
+
+		void calculateNewPosition();
+
+		void handleHorizontalRebound();
+
+		void handleVerticalRebound();
+
+		void updatePositionAndVelocity();
 
 	public :
 

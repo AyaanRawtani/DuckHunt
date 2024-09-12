@@ -42,52 +42,105 @@ namespace Enemy
 
 	void EnemyController::moveAndRebound()
 	{
-		sf::Vector2f current_position = enemy_model->getEnemyPosition();
-		sf::Vector2f current_velocity = enemy_model->getVelocity();
+		
+		current_position = enemy_model->getEnemyPosition();
+		current_velocity = enemy_model->getVelocity();
 
+		calculateNewPosition();
+		handleHorizontalRebound();
+		handleVerticalRebound();
+		updatePositionAndVelocity();
+	}
+
+	void EnemyController::calculateNewPosition()
+	{
 		float deltaTime = ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
-
 		current_position += current_velocity * deltaTime;
+	}
 
+	void EnemyController::handleHorizontalRebound()
+	{
 		if (current_position.x <= leftBound)
 		{
 			current_position.x = leftBound;
 			current_velocity.x = -current_velocity.x;
-
-			//std::cout << "Hit right bound. New velocity: " << current_velocity.x << std::endl;
-		
 		}
-
-		if (current_position.x + enemy_view-> getSpriteWidth() >= rightBound)    // + 60 because sprite width is 60.f and 0,0 is top left of sprite so right edge of sprite is 0+60 
+		else if (current_position.x + enemy_view->getSpriteWidth() >= rightBound)
 		{
 			current_position.x = rightBound - enemy_view->getSpriteWidth();
 			current_velocity.x = -current_velocity.x;
-
-			//std::cout << "Hit right bound. New velocity: " << current_velocity.x << std::endl;
 		}
+	}
 
+	void EnemyController::handleVerticalRebound()
+	{
 		if (current_position.y <= topBound)
 		{
 			current_position.y = topBound;
 			current_velocity.y = -current_velocity.y;
-
-			//std::cout << "Hit right bound. New velocity: " << current_velocity.y << std::endl;
 		}
-
-		if (current_position.y + enemy_view->getSpriteHeight() >= bottomBound)
+		else if (current_position.y + enemy_view->getSpriteHeight() >= bottomBound)
 		{
-			current_position.y = bottomBound - enemy_view->getSpriteHeight();         // need to create getSpriteSize in enemy_view
+			current_position.y = bottomBound - enemy_view->getSpriteHeight();
 			current_velocity.y = -current_velocity.y;
-
-			//std::cout << "Hit right bound. New velocity: " << current_velocity.y << std::endl;
 		}
+	}
 
-		
+	void EnemyController::updatePositionAndVelocity()
+	{
 		enemy_model->setEnemyPosition(current_position);
 		enemy_model->setVelocity(current_velocity);
-
-		
 	}
+
+
+	//void EnemyController::moveAndRebound()
+	//{
+	//	sf::Vector2f current_position = enemy_model->getEnemyPosition();
+	//	sf::Vector2f current_velocity = enemy_model->getVelocity();
+
+	//	float deltaTime = ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+
+	//	current_position += current_velocity * deltaTime;
+
+	//	if (current_position.x <= leftBound)
+	//	{
+	//		current_position.x = leftBound;
+	//		current_velocity.x = -current_velocity.x;
+
+	//		//std::cout << "Hit right bound. New velocity: " << current_velocity.x << std::endl;
+	//	
+	//	}
+
+	//	if (current_position.x + enemy_view-> getSpriteWidth() >= rightBound)    // + 60 because sprite width is 60.f and 0,0 is top left of sprite so right edge of sprite is 0+60 
+	//	{
+	//		current_position.x = rightBound - enemy_view->getSpriteWidth();
+	//		current_velocity.x = -current_velocity.x;
+
+	//		//std::cout << "Hit right bound. New velocity: " << current_velocity.x << std::endl;
+	//	}
+
+	//	if (current_position.y <= topBound)
+	//	{
+	//		current_position.y = topBound;
+	//		current_velocity.y = -current_velocity.y;
+
+	//		//std::cout << "Hit right bound. New velocity: " << current_velocity.y << std::endl;
+	//	}
+
+	//	if (current_position.y + enemy_view->getSpriteHeight() >= bottomBound)
+	//	{
+	//		current_position.y = bottomBound - enemy_view->getSpriteHeight();         // need to create getSpriteSize in enemy_view
+	//		current_velocity.y = -current_velocity.y;
+
+	//		//std::cout << "Hit right bound. New velocity: " << current_velocity.y << std::endl;
+	//	}
+
+	//	
+	//	enemy_model->setEnemyPosition(current_position);
+	//	enemy_model->setVelocity(current_velocity);
+
+	//	
+	//}
 	
 	void EnemyController::render()
 	{
