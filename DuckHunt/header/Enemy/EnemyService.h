@@ -31,9 +31,12 @@ namespace Enemy
 		void initialize();
 		void update();
 		void render();
+		void reset();
 
-		void spawnEnemy(int count);
+		void spawnEnemy();
 		void spawnEnemiesForCurrentWave(int enemies_to_spawn);
+
+		int getRemainingEnemies();
 
 		int getCurrentWave() const;
 

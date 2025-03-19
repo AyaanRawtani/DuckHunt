@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameplayModel.h"
 
 namespace Gameplay
 {
@@ -9,6 +10,7 @@ namespace Gameplay
 	{
 	private : 
 		GameplayView* gameplay_view;
+		GameplayModel* gameplay_model;
 
 	public :
 		GameplayController();
@@ -18,6 +20,12 @@ namespace Gameplay
 		void update();
 		void render();
 
+		void increaseWave();
+		void resetWave();
+
+		void reset();
+
+		GameplayModel* getGameplayModel();
 	};
 }
 	

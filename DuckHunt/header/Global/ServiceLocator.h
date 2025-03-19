@@ -6,6 +6,7 @@
 #include "header/UI/UIService.h"
 #include "header/Player/PlayerService.h"
 #include "header/Gameplay/GameplayService.h"
+//#include "header/Waves/WaveService.h"
 
 namespace Global 
 {
@@ -16,6 +17,7 @@ namespace Global
 	using namespace UI;
 	using namespace Gameplay;
 	using namespace Player;
+	//using namespace Wave;
 
 
 	class ServiceLocator
@@ -30,6 +32,7 @@ namespace Global
 		UIService* ui_service;
 		GameplayService* gameplay_service;
 		PlayerService* player_service;
+		//WaveService* wave_service;
 
 		ServiceLocator();
 		~ServiceLocator();
@@ -44,6 +47,7 @@ namespace Global
 		void initialize();
 		void update();
 		void render();
+		void reset();
 		void deleteServiceLocator();
 		
 		GraphicService* getGraphicService();
@@ -53,6 +57,7 @@ namespace Global
 		UIService* getUIService();
 		GameplayService* getGameplayService();
 		PlayerService* getPlayerService();
+		//WaveService* getWaveService();
 
 
 	};

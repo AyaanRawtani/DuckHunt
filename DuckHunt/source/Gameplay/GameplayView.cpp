@@ -9,7 +9,7 @@ namespace Gameplay
 
 	GameplayView::GameplayView() 
 	{
-
+		
 	}
 
 	GameplayView::~GameplayView() 
@@ -42,7 +42,7 @@ namespace Gameplay
 
 	void GameplayView::update() 
 	{ 
-
+		
 	}
 
 	void GameplayView::render() 

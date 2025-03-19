@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "header/Global/ServiceLocator.h"
+//#include "header/Main/WaveController.h"
 
 
 namespace Main
@@ -17,11 +18,12 @@ namespace Main
 	{
 	private:
 
-		int current_wave;
-		int enemies_per_wave;
+		//int current_wave;
+		//int enemies_per_wave;
 
 		Global::ServiceLocator* service_locator;
 		sf::RenderWindow* game_window;
+		//Main::WaveController* wave_controller;
 		
 		static GameState current_state;
 
@@ -46,8 +48,8 @@ namespace Main
 
 		bool isRunning();
 
-		void startNextWave();
-		void checkWaveCompletion();
+		//void startNextWave();
+		//void checkWaveCompletion();
 
 	};
 }

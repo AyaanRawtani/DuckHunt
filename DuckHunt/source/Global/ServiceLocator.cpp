@@ -14,6 +14,7 @@ namespace Global
 		ui_service = nullptr;
 		gameplay_service = nullptr;
 		player_service = nullptr;
+		//wave_service = nullptr;
 		createAllServices();
 	}
 
@@ -32,6 +33,7 @@ namespace Global
 		ui_service = new UIService();
 		gameplay_service = new GameplayService();
 		player_service = new PlayerService();
+		//wave_service = new WaveService();
 	}
 
 	void ServiceLocator::clearAllServices()
@@ -43,6 +45,7 @@ namespace Global
 		delete(ui_service);
 		delete(gameplay_service);
 		delete(player_service);
+		//delete(wave_service);
 
 	}
 
@@ -55,6 +58,7 @@ namespace Global
 		ui_service->initialize();
 		gameplay_service->initialize();
 		player_service->initialize();
+		//wave_service->initialize();
 	}
 
 	ServiceLocator* ServiceLocator::getInstance()
@@ -74,6 +78,8 @@ namespace Global
 			enemy_service->update();
 			player_service->update();
 			gameplay_service->update();
+			//wave_service->update();
+			
 		}
 		
 		ui_service->update();
@@ -92,6 +98,14 @@ namespace Global
 		}
 
 		ui_service->render();
+	}
+
+	void ServiceLocator::reset()
+	{
+		gameplay_service->reset();
+		enemy_service->reset();
+		player_service->reset();
+		
 	}
 
 	GraphicService* ServiceLocator::getGraphicService()
@@ -126,6 +140,11 @@ namespace Global
 	{
 		return player_service;
 	}
+
+	/*WaveService* ServiceLocator::getWaveService()
+	{
+		return wave_service;
+	}*/
 
 	void ServiceLocator::deleteServiceLocator()
 	{

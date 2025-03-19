@@ -1,8 +1,9 @@
 #pragma once
+#include "header/Gameplay/GameplayController.h"
 
 namespace Gameplay
 {
-	class GameplayController;
+	
 
 	class GameplayService
 	{
@@ -16,5 +17,11 @@ namespace Gameplay
 		void initialize();
 		void update();
 		void render();
+		void increaseWave();
+		void resetWave();
+		int getNoofEnemiesToSpawn();
+		void reset();
+
+		GameplayModel* getGameplayModel();
 	};
 }

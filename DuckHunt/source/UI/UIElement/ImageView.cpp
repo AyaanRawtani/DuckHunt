@@ -11,9 +11,12 @@ namespace UI
         void ImageView::initialize(sf::String texture_path, float image_width, float image_height, sf::Vector2f position)
         {
             UIView::initialize();
-            setTexture(texture_path);
-            setScale(image_width, image_height);
-            setPosition(position);
+            if (setTexture(texture_path))
+            {
+                setScale(image_width, image_height);
+                setPosition(position);
+            }
+
         }
 
         void ImageView::update()
@@ -31,20 +34,41 @@ namespace UI
             }
         }
 
-        void ImageView::setTexture(sf::String texture_path)
+       bool ImageView::setTexture(sf::String texture_path)
         {
             if (image_texture.loadFromFile(texture_path))
             {
                 image_sprite.setTexture(image_texture);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        void ImageView::setScale(float width, float height)
+        void ImageView::setTextureRect(sf::IntRect textureRect)
         {
-            float scale_x = width / image_sprite.getTexture()->getSize().x;
-            float scale_y = height / image_sprite.getTexture()->getSize().y;
+            image_sprite.setTextureRect(textureRect);
+        }
 
-            image_sprite.setScale(scale_x, scale_y);
+        void ImageView::setScale(float xScale, float yScale)
+        {
+            image_sprite.setScale
+            (
+               xScale / image_sprite.getTexture()->getSize().x,
+               yScale / image_sprite.getTexture()->getSize().y
+             );
+
+           
+        }
+
+        void ImageView::setScale(float width, float height, float tileWidth, float tileHeight)
+        {
+            image_sprite.setScale(
+                width / tileWidth,
+                height / tileHeight
+            );
         }
 
         void ImageView::setPosition(sf::Vector2f position)

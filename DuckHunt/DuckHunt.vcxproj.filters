@@ -81,6 +81,24 @@
     <ClCompile Include="source\Player\PlayerService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\UI\UIElement\ButtonView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\UIElement\TextView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\UIControllers\GameplayUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Player\PlayerModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\UIElement\AnimatedImageView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Gameplay\GameplayModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Main\GameService.h">
@@ -150,6 +168,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Player\PlayerService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\UIElement\TextView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\UIElement\ButtonView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\UIControllers\GameplayUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Player\PlayerModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\UIElement\AnimatedImageView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Enemy\EnemyAnimationConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Enemy\EnemyAnimationConfigData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Gameplay\GameplayModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Global\Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

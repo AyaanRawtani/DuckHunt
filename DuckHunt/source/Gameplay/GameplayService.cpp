@@ -27,4 +27,26 @@ namespace Gameplay
 	{
 		gameplay_controller->render();
 	}
+
+	void GameplayService::increaseWave()
+	{
+		gameplay_controller->increaseWave();
+	}
+	void GameplayService::resetWave()
+	{
+		gameplay_controller->resetWave();
+	}
+	int GameplayService::getNoofEnemiesToSpawn()
+	{
+		return getGameplayModel()->getNoOfDucksToSpawn();
+	}
+
+	void GameplayService::reset()
+	{
+		gameplay_controller->reset();
+	}
+	GameplayModel* GameplayService::getGameplayModel()
+	{
+		return gameplay_controller->getGameplayModel();
+	}
 }

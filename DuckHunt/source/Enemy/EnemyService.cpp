@@ -23,7 +23,7 @@ namespace Enemy
 
 	void EnemyService::initialize()
 	{
-		spawnEnemy(0);
+		spawnEnemy();
 	}
 
 	void EnemyService::update()
@@ -37,6 +37,11 @@ namespace Enemy
 	{
 		for (int i = 0; i < enemy_list.size(); i++)
 			enemy_list[i]->render();
+	}
+
+	void EnemyService::reset()
+	{
+		destroy();
 	}
 
 	
@@ -55,18 +60,13 @@ namespace Enemy
 	}
 
 	
-	void EnemyService::spawnEnemy(int count)
+	void EnemyService::spawnEnemy()
 	{
-		//clearEnemies();
-		for (int i = 0; i < count; ++i)
-		{
 			EnemyController* enemy_controller = createEnemy(getRandomEnemyType());
 			enemy_controller->initialize();
 			enemy_controller->setEnemyVelocity(enemy_model->getRandomVelocity());
 			enemy_list.push_back(enemy_controller);
 			
-		}
-		
 	}
 
 	void EnemyService::spawnEnemiesForCurrentWave(int enemies_to_spawn)
@@ -76,17 +76,19 @@ namespace Enemy
 
 		for (int i = 0; i < enemies_to_spawn; ++i)
 		{
-			EnemyController* enemy_controller = createEnemy(getRandomEnemyType());
-			enemy_controller->initialize(); 
-			enemy_controller->setEnemyVelocity(enemy_model->getRandomVelocity());
-			enemy_list.push_back(enemy_controller);
+			spawnEnemy();
 		}
+	}
+
+	int EnemyService::getRemainingEnemies()
+	{
+		return enemy_list.size();
 	}
 
 
 	int EnemyService::getCurrentWave() const
 	{
-		return current_wave;
+		return Enemy::EnemyService::current_wave;
 	}
 
 
@@ -106,13 +108,22 @@ namespace Enemy
 	{
 		
 		enemy_list.erase(std::remove(enemy_list.begin(), enemy_list.end(), enemy_controller), enemy_list.end());
+		delete enemy_controller;
+		if (getRemainingEnemies() <= 0 && Global::ServiceLocator::getInstance()->getPlayerService()->getLives() > 0) 
+		{
+			Global::ServiceLocator::getInstance()->getGameplayService()->increaseWave();
+		}
+
 	}
 
 	void EnemyService::destroy()
 	{
 		
-		for (int i = 0; i < enemy_list.size(); i++)
-			delete (enemy_list[i]);
+		for (EnemyController* enemy_controller : enemy_list)
+		{
+			delete enemy_controller;
+		}
+		enemy_list.clear();
 	}
 	
 }

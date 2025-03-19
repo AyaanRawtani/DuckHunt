@@ -147,6 +147,8 @@ namespace Enemy
 		enemy_view->render();
 	}
 
+	
+
 
 	sf::Vector2f EnemyController::getEnemyPosition()
 	{
@@ -184,7 +186,7 @@ namespace Enemy
 
 	void EnemyController::destroy()
 	{
-		//printf("Enemy destoryed");
+		
 		ServiceLocator::getInstance()->getEnemyService()->destroyEnemy(this);
 	}
 	

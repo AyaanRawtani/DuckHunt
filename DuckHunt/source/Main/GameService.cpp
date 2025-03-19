@@ -1,18 +1,18 @@
 #include "header/Main/GameService.h"
 #include "header/Graphics/GraphicService.h"
 #include "header/Global/ServiceLocator.h"
+//#include "header/Main/WaveController.h"
 
 namespace Main
 {
 	
-
 	GameState GameService::current_state = GameState::BOOT;
 
 	GameService::GameService()
 	{
 		service_locator = nullptr;
 		game_window = nullptr;
-		current_wave = 0;
+		//wave_controller = nullptr;
 		
 	}
 
@@ -29,6 +29,9 @@ namespace Main
 
 	void GameService::initialize()
 	{
+		
+		//wave_controller = new Main::WaveController();
+		//wave_controller->initialize();
 		service_locator->initialize();
 		initializeVariables();
 		showMainMenu();
@@ -38,11 +41,10 @@ namespace Main
 	void GameService::initializeVariables()
 	{
 		game_window = service_locator->getGraphicService()->getGameWindow();
-		startNextWave();
-
+	
 	}
 
-	void GameService::startNextWave()
+	/*void GameService::startNextWave()
 	{
 		current_wave++;
 		enemies_per_wave = 2 * current_wave;
@@ -58,7 +60,7 @@ namespace Main
 			printf("wave ended! \n");
 			startNextWave();
 		}
-	}
+	}*/
 
 	void GameService::setGameState(GameState new_state) 
 	{
@@ -86,7 +88,7 @@ namespace Main
 	{
 		service_locator->getEventService()->processEvents();
 		service_locator->update();
-		checkWaveCompletion();
+		//wave_controller->checkWaveCompletion();
 	}
 
 	void GameService::render()

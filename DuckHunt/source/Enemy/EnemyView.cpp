@@ -3,6 +3,8 @@
 #include "Global/ServiceLocator.h"
 #include "Graphics/GraphicService.h"
 #include "Enemy/EnemyConfig.h"
+#include "header/Enemy/EnemyAnimationConfigData.h"
+
 
 
 namespace Enemy
@@ -25,6 +27,7 @@ namespace Enemy
 	{
 		enemy_controller = controller;
 		//game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+		currentFrame = 0;
 		initializeImage();
 	}
 
@@ -37,6 +40,8 @@ namespace Enemy
 	void EnemyView::initializeImage()
 	{
 		enemy_image->initialize(getEnemyTexturePath(), enemy_sprite_height, enemy_sprite_width, enemy_controller->getEnemyPosition());
+		enemy_image->setTextureRect(sf::IntRect(0, 0, enemyAnimationConfig.tileWidth, enemyAnimationConfig.tileHeight));
+	
 	}
 
 	sf::String EnemyView::getEnemyTexturePath()
@@ -50,8 +55,7 @@ namespace Enemy
 		case::Enemy::EnemyKind::REDBIRD:
 			return red_texture_path;
 
-		default:
-			throw std::runtime_error("Unknown enemy type encountered in getEnemyTexturePath()");
+		
 		}
 
 
@@ -59,8 +63,71 @@ namespace Enemy
 
 	void EnemyView::update()
 	{
-		enemy_image->update();
+		elapsedTime += Global::ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 		enemy_image->setPosition(enemy_controller->getEnemyPosition());
+		if (enemy_controller->getEnemyState() == EnemyState::FLYING)
+		{
+			updateAnimation(enemyAnimationConfig);
+		}
+
+		else
+		{
+			enemy_image->setRotation(0);
+			if (!deadAnimationFinished)
+			{
+				showDeadAnimation(enemyDeadAnimationConfig);
+			}
+			else
+			{
+				updateAnimation(enemyRotatingAnimationConfig);
+			}
+
+
+		}
+	}
+
+	void EnemyView::updateAnimation(EnemyAnimationConfig animationConfig)
+	{
+		if (elapsedTime >= animationConfig.frameDuration)
+		{
+			if (currentFrame + 1 >= animationConfig.numberOfAnimationFrame)
+			{
+				currentFrame = 0;
+			}
+
+			else
+			{
+				currentFrame = (currentFrame + 1) % animationConfig.numberOfAnimationFrame;
+			}
+
+			enemy_image->setTextureRect(sf::IntRect(
+				animationConfig.tileStart + (currentFrame * animationConfig.tileWidth),
+				0,
+				animationConfig.tileWidth,
+				animationConfig.tileHeight));
+			elapsedTime = 0.f;
+			enemy_image->update();
+		}
+		
+	}
+
+	void EnemyView::showDeadAnimation(EnemyAnimationConfig animationConfig)
+	{
+		enemy_image->setTextureRect(sf::IntRect(
+			animationConfig.tileStart,
+			0,
+			animationConfig.tileWidth,
+			animationConfig.tileHeight
+		));
+		if (elapsedTime >= animationConfig.frameDuration)
+		{
+			currentFrame = 0;
+			elapsedTime = 0.f;
+			deadAnimationFinished = true;
+		
+		}
+
+		enemy_image->update();
 	}
 
 	
@@ -84,6 +151,12 @@ namespace Enemy
 	{
 		return enemy_image->getSprite();
 	}
+
+	void EnemyView::setScale(int flip)
+	{
+		enemy_image->setScale(enemy_sprite_width, enemy_sprite_height,  flip * enemyAnimationConfig.tileWidth, enemyAnimationConfig.tileHeight);
+	}
+
 	
 	void EnemyView::destroy()
 	{

@@ -53,6 +53,8 @@ namespace Enemy
 		virtual void initialize();
 		void update();
 		void render();
+		
+
 
 		sf::Vector2f getEnemyPosition();
 		sf::Vector2f getEnemyVelocity();
