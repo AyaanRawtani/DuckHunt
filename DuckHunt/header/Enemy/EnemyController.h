@@ -7,38 +7,64 @@ namespace Enemy
 {
 	using namespace Graphic;
 	
-
 	class EnemyModel;
 	class EnemyView;
+
+	enum class EnemyKind;
+	enum class EnemyState;
 
 	class EnemyController
 	{
 	private :
-		EnemyView* enemy_view;
-		EnemyModel* enemy_model;
-
+		
+	
 		const float leftBound = 50.f;
 		const float rightBound = 1920.0f - 50.f ;
 		const float topBound = 50.0f;
 		const float bottomBound = 1080.0f - 50.f ;
 
-		//sf::Vector2f set_velocity;
+
+		sf::Vector2f current_position;
+		sf::Vector2f current_velocity;
+
+	protected :
+
+		EnemyModel* enemy_model;
+		EnemyView* enemy_view;
+		void moveAndRebound();
+
+		void calculateNewPosition();
+
+		void handleHorizontalRebound();
+
+		void handleVerticalRebound();
+
+		void updatePositionAndVelocity();
 
 	public :
 
-		EnemyController();
-		~EnemyController();
+		
 
-		void moveAndRebound();
+		EnemyController(EnemyKind type);
+		virtual ~EnemyController();
 
-		void initialize();
+		
+
+		virtual void initialize();
 		void update();
 		void render();
 
 		sf::Vector2f getEnemyPosition();
 		sf::Vector2f getEnemyVelocity();
 		sf::Vector2f setEnemyVelocity(sf::Vector2f velocity);
-		//sf::Vector2f generateRandomVelocity();
+
+		EnemyKind getEnemyType();
+		EnemyState getEnemyState();
+
+		bool checkCollision(const sf::Vector2i& mousePos);
+
+		void destroy();
+		
 	};
 
 }

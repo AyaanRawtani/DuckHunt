@@ -1,11 +1,11 @@
 #include "header/Event/EventService.h"
 #include "header/Main/GameService.h"
 #include "header/Graphics/GraphicService.h"
-#include "header/Global/ServiceLocator.h"
+
 
 namespace Event
 {
-
+	using namespace Global;
 
 	EventService::EventService()
 	{
@@ -22,7 +22,9 @@ namespace Event
 
 	void EventService::update()
 	{
-		//processEvents();
+		
+		updateMouseButtonsState(left_mouse_button_state, sf::Mouse::Left);
+		updateMouseButtonsState(right_mouse_button_state, sf::Mouse::Right);
 	}
 
 	void EventService::processEvents()
@@ -42,6 +44,36 @@ namespace Event
 	bool EventService::hasQuitGame()
 	{
 		return (isKeyBoardEvent() && pressedEscapeKey());
+	}
+
+	void EventService::updateMouseButtonsState(ButtonState& current_button_state, sf::Mouse::Button mouse_button)
+	{
+		if (sf::Mouse::isButtonPressed(mouse_button))
+		{
+			switch (current_button_state)
+			{
+			case ButtonState::RELEASED:
+				current_button_state = ButtonState::PRESSED;
+				break;
+			case ButtonState::PRESSED:
+				current_button_state = ButtonState::HELD;
+				break;
+			}
+		}
+		else
+		{
+			current_button_state = ButtonState::RELEASED;
+		}
+	}
+
+	bool EventService::pressedLeftMouseButton()
+	{
+		return left_mouse_button_state == ButtonState::PRESSED;
+	}
+
+	bool EventService::pressedRightMouseButton()
+	{
+		return right_mouse_button_state == ButtonState::PRESSED;
 	}
 
 	bool EventService::isKeyBoardEvent()

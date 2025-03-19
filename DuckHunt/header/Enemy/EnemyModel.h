@@ -1,12 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-//#include "header/Time/TimeService.h"
 
 
 namespace Enemy
 {
-	//using namespace Time;
 	
+	enum class EnemyKind;
+	enum class EnemyState;
 
 	class EnemyModel
 	{
@@ -17,11 +17,12 @@ namespace Enemy
 		sf::Vector2f reference_velocity = sf::Vector2f(350, -200);
 		sf::Vector2f enemy_velocity;
 
+		EnemyKind enemy_type;
+		EnemyState enemy_state;
+
 	public :
 		
-		
-
-		EnemyModel();
+		EnemyModel(EnemyKind type);
 		~EnemyModel();
 
 		void initialize();
@@ -37,5 +38,11 @@ namespace Enemy
 		sf::Vector2f getRandomVelocity();
 		sf::Vector2f getVelocity();
 		void setVelocity(sf::Vector2f velocity);
+
+		EnemyKind getEnemyType();
+		void setEnemyType(EnemyKind type);
+
+		EnemyState getEnemyState();
+		void setEnemyState(EnemyState state);
 	};
 }
